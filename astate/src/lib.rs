@@ -46,10 +46,16 @@ pub fn square(x: u32) -> u32 {
 
 #[wasm_bindgen]
 pub fn timed(callback: &js_sys::Function) -> f64 {
+    let j_map = js_sys::Map::new();
+
+
     let then = js_sys::Date::now();
     let array = &js_sys::Array::new();
-    let refr: String = "hello?".to_string();
-    array.push(&JsValue::from_str(&refr));
+    let jkey: String = "hello?".to_string();
+
+    j_map.set(&JsValue::from_str(&jkey), &JsValue::from_str(&"rustaceans".to_string()));
+
+    array.push(&j_map);
     callback.apply(&JsValue::null(), array).unwrap();
     let now = js_sys::Date::now();
     now - then

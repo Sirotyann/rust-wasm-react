@@ -1,0 +1,75 @@
+#chatBox {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.chat {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  border-bottom: 1px solid #f9f9f9;
+}
+
+.chat:nth-child(odd) {
+  background-color: #fbfbfb;
+}
+
+.chat .content {
+  flex-grow: 1;
+}
+
+.chat .author {
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  background-color: #f0f0f0;
+  border-radius: 30px;
+  margin-right: 10px;
+}
+
+.chat .text {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  font-size: 1.2em;
+}
+
+.chat .time {
+  color: #999;
+  text-align: right;
+}
+
+.postBox {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.postBox button {
+  height: 42px;
+  width: 100px;
+  border: none;
+  background: #4242b3;
+  color: white;
+  font-size: 1.1em;
+}
+
+.postBox input {
+  padding: 0 10px 0;
+  font-size: 14px;
+  flex-grow: 1;
+  height: 40px;
+  border: 1px solid #dddddd;
+  border-right: none;
+}
+
+header {
+  text-align: center;
+  padding: 10px;
+}
+
+header img {
+  height: 40px;
+  margin: 0 auto;
+}

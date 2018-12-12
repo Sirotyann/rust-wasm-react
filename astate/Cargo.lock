@@ -11,6 +11,7 @@ name = "astate"
 version = "0.1.0"
 dependencies = [
  "cfg-if 0.1.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "js-sys 0.3.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "wasm-bindgen 0.2.29 (registry+https://github.com/rust-lang/crates.io-index)",
  "wasm-bindgen-test 0.2.29 (registry+https://github.com/rust-lang/crates.io-index)",
  "web-sys 0.3.6 (registry+https://github.com/rust-lang/crates.io-index)",
