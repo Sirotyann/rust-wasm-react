@@ -16,9 +16,8 @@ export default class SquareBox extends React.Component {
     console.log("Create square");
     return (
       <div>
-      <p>Num: {this.state.num} </p>
-      <button onClick={this.square}>Click me to squre, testing wasm</button>
-
+        <p>Num: {this.state.num} </p>
+        <button onClick={this.square}>Click me to squre, testing wasm</button>
       </div>);
   }
 }

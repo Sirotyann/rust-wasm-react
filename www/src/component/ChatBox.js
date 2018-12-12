@@ -1,9 +1,17 @@
 import React from "react";
 import { useState } from 'react';
 
-const ChatBox = () => {
-  const [messages] = useState(0);
+class ChatBox extends React.Component {
+  render(){
+    return (<div id="chatBox">
+
+    </div>);
+  }
 }
+// 
+// const ChatBox = () => {
+//   const [messages] = useState(0);
+// }
 
 function Example() {
   // Declare a new state variable, which we'll call "count"
