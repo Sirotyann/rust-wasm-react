@@ -4,8 +4,10 @@ import ReactDOM from "react-dom";
 export default class SquareBox extends React.Component {
   constructor(props) {
     super(props);
+    console.log(this.props.timed);
     this.state = { num: 2 };
     this.square = this.square.bind(this);
+    this.props.timed((res)=>{console.log(res);});
   }
 
   square() {

@@ -1,5 +1,6 @@
 extern crate wasm_bindgen;
 extern crate web_sys;
+extern crate js_sys;
 
 use wasm_bindgen::prelude::*;
 
@@ -42,3 +43,14 @@ pub fn square(x: u32) -> u32 {
 //#[wasm_bindgen]
 //pub fn subscribe(view: &str, fun: &?) {
 //}
+
+#[wasm_bindgen]
+pub fn timed(callback: &js_sys::Function) -> f64 {
+    let then = js_sys::Date::now();
+    let array = &js_sys::Array::new();
+    let refr: String = "hello?".to_string();
+    array.push(&JsValue::from_str(&refr));
+    callback.apply(&JsValue::null(), array).unwrap();
+    let now = js_sys::Date::now();
+    now - then
+}

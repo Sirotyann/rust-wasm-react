@@ -5,7 +5,7 @@ import SquareBox from "./component/SquareBox";
 export default class Main extends React.Component {
   render() {
     return (<div id="main">
-      <SquareBox square={this.props.wasm.square}/>
+      <SquareBox square={this.props.wasm.square} timed={this.props.wasm.timed}/>
       <ChatBox/>
     </div>);
   }
