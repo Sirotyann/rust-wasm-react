@@ -3,8 +3,10 @@ extern crate web_sys;
 extern crate js_sys;
 
 use wasm_bindgen::prelude::*;
+use wasm_bindgen::JsValue;
 
 //-----------------------------------------------------------------------------
+
 #[wasm_bindgen]
 extern {
     fn alert(s: &str);
@@ -40,9 +42,34 @@ pub fn square(x: u32) -> u32 {
     result
 }
 
-//#[wasm_bindgen]
-//pub fn subscribe(view: &str, fun: &?) {
-//}
+// -----------------------------------------------------------------------------
+
+#[wasm_bindgen]
+pub fn init_store() -> js_sys::Map {
+    js_sys::Map::new()
+}
+
+#[wasm_bindgen]
+pub fn subscribe(store: &js_sys::Map, callback: &js_sys::Function) -> () {
+    store.set(&JsValue::from_str("callback"), callback);
+}
+
+#[wasm_bindgen]
+pub fn post_message(store: &js_sys::Map, msg: &str, author: &str) -> () {
+    let messageMap: js_sys::Array = js_sys::Array::from(
+                                        &store.get(&JsValue::from_str("messageList"))
+                                    );
+    let newMessageWrapped: js_sys::Array = js_sys::Array::of1(&JsValue::from_str(msg));
+    let newMessageMap: js_sys::Array = messageMap.concat(&newMessageWrapped);
+    store.set(&JsValue::from_str(&"messageList"), &newMessageMap);
+
+    let callback: js_sys::Function = js_sys::Function::from(
+                                            &store.get(&JsValue::from_str(&"callback"))
+                                     );
+    callback.apply(&JsValue::null());
+}
+
+// -----------------------------------------------------------------------------
 
 #[wasm_bindgen]
 pub fn timed(callback: &js_sys::Function) -> f64 {
@@ -54,3 +81,4 @@ pub fn timed(callback: &js_sys::Function) -> f64 {
     let now = js_sys::Date::now();
     now - then
 }
+
