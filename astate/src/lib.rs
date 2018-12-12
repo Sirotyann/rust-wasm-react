@@ -3,6 +3,7 @@ extern crate web_sys;
 
 use wasm_bindgen::prelude::*;
 
+//-----------------------------------------------------------------------------
 #[wasm_bindgen]
 extern {
     fn alert(s: &str);
@@ -36,4 +37,8 @@ pub fn square(x: u32) -> u32 {
     let sres: String = result.to_string();
     deliver("a message", &sres);
     result
+}
+
+#[wasm_bindgen]
+pub fn subscribe(view: &str, fun: &?) {
 }
