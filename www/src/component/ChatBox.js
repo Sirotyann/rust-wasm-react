@@ -1,39 +1,40 @@
 import React from "react";
 import { useState } from 'react';
+import { subscribe } from '../../wasm/owl';
 
 let firstLoad = true;
-let store = null;
 
 function ChatBox(props) {
   console.log('render ChatBox', props);
-  if(firstLoad) {
-    store = props.wasm.init_store();
-  }
 
   const [words, setWords] = useState('');
-  const [messages, setMessages] = useState(store);
+  const [messages, setMessages] = useState([]);
 
   if(firstLoad) {
-    props.wasm.subscribe(store, (data)=> {
-      console.log("callback from rust!!", data);
+    console.log('try to subscribe', props.wasm.subscribe);
+    subscribe((msgs)=> {
+      console.log("callback from rust!!", msgs);
+      setMessages(msgs);
     });
+    props.wasm.init_store();
   }
+
+  firstLoad = false;
+
+  // let dic = new Dictionary().build('name', 'lc');
+  // props.wasm.test(dic);
 
   return (
     <div id="chatBox">
       <div className="chats">
-        {messages.map((msg) => (<Chat data={msg} key={msg.get('id')}/>))}
+        {messages.map((msg) => (<Chat data={msg} key={msg.get('time')}/>))}
       </div>
 
       <div className="postBox">
         <input type="text" value={words} onChange={(event)=>{setWords(event.target.value.trim())}}/>
         <button onClick={()=>{
           if(words.length){
-            props.wasm.post_message(messages, {
-              author: 'Luke',
-              text: words,
-              time: new Date().getTime()
-            });
+            props.wasm.post_message(messages, words, 'Luke', `${new Date().getTime()}`);
             setWords('');
           }
         }}>Send</button>
@@ -44,13 +45,15 @@ function ChatBox(props) {
 
 function Chat(props) {
   const time = new Date(props.data.get('time'));
-  return (<div className="chat" key={props.id}>
+  return (<div className="chat">
       <div className="author">{props.data.get('author')}</div>
       <div className="content">
         <div className="text">{props.data.get('text')}</div>
-        <div className="time">{time?`${time.getHours()}:${time.getMinutes()>=10?time.getMinutes():'0'+time.getMinutes()}:${time.getSeconds()}`:'--'}</div>
+        <div className="time">{time?`${time.getHours()}:${fix2(time.getMinutes())}:${fix2(time.getSeconds())}`:'--'}</div>
       </div>
     </div>);
 }
+
+const fix2 = (num) => (num>=10?`${num}`:`0${num}`);
 
 export default ChatBox;

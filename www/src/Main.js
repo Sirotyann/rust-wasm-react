@@ -2,19 +2,6 @@ import React from "react";
 import ChatBox from "./component/ChatBox";
 import SquareBox from "./component/SquareBox";
 
-export default class Main extends React.Component {
-  render() {
-    const wasm = this.props.wasm;
-    wasm.init_store = test_init_store;
-    wasm.post_message = test_post_message;
-    wasm.subscribe = test_subscribe;
-    // <SquareBox square={this.props.wasm.square} timed={this.props.wasm.timed}/>
-    return (<div id="main">
-      <ChatBox wasm={wasm}/>
-    </div>);
-  }
-}
-
 const test_post_message = (store, msg) => {
   console.log('test_post_message', store, msg);
 }
@@ -36,5 +23,36 @@ const test_init_store = ()=> {
   joda.set('time', 1544637737755);
   joda.set('text', 'Hi Luke!');
 
-  return [luke, joda];
+  return {messageList: [luke, joda]};
 };
+
+
+export default class Main extends React.Component {
+  render() {
+
+    const wasm = {...this.props.wasm};
+    // wasm.init_store = test_init_store;
+    // wasm.post_message = test_post_message;
+    // wasm.subscribe = test_subscribe;
+    // <SquareBox square={this.props.wasm.square} timed={this.props.wasm.timed}/>
+    return (<div id="main">
+      <ChatBox wasm={wasm}/>
+        <div id="main">
+          <button onClick={() => this.g_rustStore = this.props.wasm.init_store() }>{"1) Initialize store"}</button>
+          <br/>
+          <button onClick={
+              () => console.log(this.props.wasm.subscribe(function () { console.log("Callback!") }))
+              }>
+                {"2) Subscribe"}
+          </button>
+          <button onClick={
+              () => console.log(this.props.wasm.subscribe("testviewname", function () { console.log("Callback!") }))
+              }>
+                {"3) Add message"}
+          </button>
+
+        </div>
+        </div>
+    );
+  }
+}
