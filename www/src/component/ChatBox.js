@@ -34,7 +34,7 @@ function ChatBox(props) {
 
             setTimeout(()=>{
               props.wasm.auto_reply_message(messages, `${new Date().getTime()}`);
-            }, Math.floor(Math.random()*3000));
+            }, Math.floor(Math.random()*2000));
           }
         }}>Send</button>
       </div>

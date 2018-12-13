@@ -26,27 +26,6 @@ extern "C" {
     fn deliver(messages: &js_sys::Array);
 }
 
-#[wasm_bindgen(module = "./Dictionary")]
-pub extern {
-
-    type Dictionary;
-
-    #[wasm_bindgen(constructor)]
-    fn new() -> Dictionary;
-
-    #[wasm_bindgen(method, getter)]
-    fn key(this: &Dictionary) -> String;
-    #[wasm_bindgen(method, getter)]
-    fn value(this: &Dictionary) -> String;
-    #[wasm_bindgen(method, setter)]
-    fn set_key(this: &Dictionary, key: String) -> Dictionary;
-    #[wasm_bindgen(method, setter)]
-    fn set_value(this: &Dictionary, value: String) -> Dictionary;
-    #[wasm_bindgen(method)]
-    fn toString(this: &Dictionary) -> String;
-}
-
-
 #[wasm_bindgen]
 pub fn greet() {
     log("Hello from Rust!");
