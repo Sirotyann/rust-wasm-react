@@ -5,7 +5,7 @@ import { subscribe } from '../../wasm/owl';
 let firstLoad = true;
 
 function ChatBox(props) {
-  console.log('render ChatBox firstLoad? ' + firstLoad, props);
+  // console.log('render ChatBox firstLoad? ' + firstLoad, props);
 
   const [words, setWords] = useState('');
   const [messages, setMessages] = useState([]);
@@ -18,9 +18,6 @@ function ChatBox(props) {
   }
 
   firstLoad = false;
-
-  // let dic = new Dictionary().build('name', 'lc');
-  // props.wasm.test(dic);
 
   return (
     <div id="chatBox">

@@ -1,7 +1,6 @@
 
 
 const deliver = (messages) => {
-    console.log("messages are delivered", messages);
     if(_callback) {
       _callback.call(null, messages);
     }

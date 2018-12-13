@@ -84,10 +84,6 @@ pub fn init_store() -> () {
 
 #[wasm_bindgen]
 pub fn post_message(store: &js_sys::Array, msg: &str, author: &str, time: f64) -> () {
-    log("post_message from Rust!");
-    log_many(msg, author);
-    log("post_message print messages!");
-
     let message = js_sys::Map::new();
     message.set(&JsValue::from_str(&"author"), &JsValue::from_str(author));
     message.set(&JsValue::from_str(&"time"), &JsValue::from_f64(time));
@@ -99,7 +95,6 @@ pub fn post_message(store: &js_sys::Array, msg: &str, author: &str, time: f64) -
 
 #[wasm_bindgen]
 pub fn auto_reply_message(store: &js_sys::Array, time: f64) -> () {
-    log("auto_reply_message");
     let message_yoda = gen_random_message(time);
     store.push(&message_yoda);
     deliver(store);
