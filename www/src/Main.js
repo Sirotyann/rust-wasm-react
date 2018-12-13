@@ -36,23 +36,25 @@ export default class Main extends React.Component {
     // wasm.subscribe = test_subscribe;
     // <SquareBox square={this.props.wasm.square} timed={this.props.wasm.timed}/>
     return (<div id="main">
-      <ChatBox wasm={wasm}/>
-        <div id="main">
-          <button onClick={() => this.g_rustStore = this.props.wasm.init_store() }>{"1) Initialize store"}</button>
-          <br/>
-          <button onClick={
-              () => console.log(this.props.wasm.subscribe(function () { console.log("Callback!") }))
-              }>
-                {"2) Subscribe"}
-          </button>
-          <button onClick={
-              () => console.log(this.props.wasm.subscribe("testviewname", function () { console.log("Callback!") }))
-              }>
-                {"3) Add message"}
-          </button>
-
-        </div>
+          <ChatBox wasm={wasm}/>
         </div>
     );
+
+
+      // <div id="main">
+      //   <button onClick={() => this.g_rustStore = this.props.wasm.init_store() }>{"1) Initialize store"}</button>
+      //   <br/>
+      //   <button onClick={
+      //       () => console.log(this.props.wasm.subscribe(function () { console.log("Callback!") }))
+      //       }>
+      //         {"2) Subscribe"}
+      //   </button>
+      //   <button onClick={
+      //       () => console.log(this.props.wasm.subscribe("testviewname", function () { console.log("Callback!") }))
+      //       }>
+      //         {"3) Add message"}
+      //   </button>
+      //
+      // </div>
   }
 }

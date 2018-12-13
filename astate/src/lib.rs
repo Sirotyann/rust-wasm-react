@@ -61,6 +61,15 @@ pub fn square(x: u32) -> u32 {
 }
 
 // -----------------------------------------------------------------------------
+static DEFAULT_MESSAGES: &'static [(&'static str, &'static str)] = &[
+("Yoda", "Truly wonderful, the mind of a child is."),
+("Yoda", "Train yourself to let go of everything you fear to lose."),
+("Yoda", "That is why you fail."),
+("Yoda", "A Jedi uses the Force for knowledge and defense, never for attack."),
+("Yoda", "Fear is the path to the dark side."),
+("Yoda", "Wars not make one great."),
+("Yoda", "Do. Or do not. There is no try.")
+];
 
 #[wasm_bindgen]
 pub fn init_store() -> () {
@@ -85,7 +94,26 @@ pub fn post_message(store: &js_sys::Array, msg: &str, author: &str, time: f64) -
     message.set(&JsValue::from_str(&"text"), &JsValue::from_str(msg));
 
     store.push(&message);
+}
+
+
+#[wasm_bindgen]
+pub fn auto_reply_message(store: &js_sys::Array, time: f64) -> () {
+    log("auto_reply_message");
+    let message_yoda = gen_random_message(time);
+    store.push(&message_yoda);
     deliver(store);
+}
+
+fn gen_random_message(time: f64) -> js_sys::Map {
+    log("gen_random_message");
+    let index = js_sys::Math::floor(js_sys::Math::random() * 7.0);
+    let tup = DEFAULT_MESSAGES[index as usize];
+    let message = js_sys::Map::new();
+    message.set(&JsValue::from_str(&"author"), &JsValue::from_str(tup.0));
+    message.set(&JsValue::from_str(&"time"), &JsValue::from_f64(time));
+    message.set(&JsValue::from_str(&"text"), &JsValue::from_str(tup.1));
+    message
 }
 
 // -----------------------------------------------------------------------------

@@ -5,7 +5,12 @@ sh ./build.sh
 
 echo "start build js"
 cd ../www
-npm install
+rm -rf ./wasm
+mkdir wasm
+cp ../astate/pkg/*.js ./wasm
+cp ../astate/pkg/*.ts ./wasm
+cp ../astate/pkg/*.wasm ./wasm
+npm installs
 npm run build
 
 echo "start webserver"

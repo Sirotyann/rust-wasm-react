@@ -5,15 +5,13 @@ import { subscribe } from '../../wasm/owl';
 let firstLoad = true;
 
 function ChatBox(props) {
-  console.log('render ChatBox', props);
+  console.log('render ChatBox firstLoad? ' + firstLoad, props);
 
   const [words, setWords] = useState('');
   const [messages, setMessages] = useState([]);
 
   if(firstLoad) {
-    console.log('try to subscribe', props.wasm.subscribe);
     subscribe((msgs)=> {
-      console.log("callback from rust!!", msgs);
       setMessages(msgs);
     });
     props.wasm.init_store();
@@ -36,6 +34,10 @@ function ChatBox(props) {
           if(words.length){
             props.wasm.post_message(messages, words, 'Luke', `${new Date().getTime()}`);
             setWords('');
+
+            setTimeout(()=>{
+              props.wasm.auto_reply_message(messages, `${new Date().getTime()}`);
+            }, Math.floor(Math.random()*3000));
           }
         }}>Send</button>
       </div>
